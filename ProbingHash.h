@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <stdexcept>
+#include <cmath>
 
 #include "Hash.h"
 
@@ -31,19 +32,24 @@ public:
     }
 
     bool empty() {
+        return 1;
     }
 
     int size() {
+        return 1;
     }
 
     V& at(const K& key) {
         throw std::out_of_range("Key not in hash");
+        return 1;
     }
 
     V& operator[](const K& key) {
+        return 1;
     }
 
     int count(const K& key) {
+        return 1;
     }
 
     void emplace(K key, V value) {
@@ -59,15 +65,19 @@ public:
     }
 
     int bucket_count() {
+        return 1;
     }
 
     int bucket_size(int n) {
+        return 1;
     }
 
     int bucket(const K& key) {
+        return 1;
     }
 
     float load_factor() {
+        return 1;
     }
 
     void rehash() {

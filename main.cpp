@@ -2,8 +2,12 @@
 #include "ProbingHash.h"
 //#include "ParallelProbingHash.h" 
 #include <omp.h>
+#include <ctime>
+#include <fstream>
 
 #define NUM_THREADS 2  // update this value with the number of cores in your system. 
+
+using std::clock_t;
 
 int main()
 {
@@ -13,16 +17,37 @@ int main()
 		ChainingHash<int,int> chainhash;
 
 		// In order, insert values with keys 1 – 1,000,000. For simplicity, the key and value stored are the same. 
+		clock_t start = clock();
+		for (int i=1; i<1000001; i++){ 
+			chainhash.insert({i,i});
+		}
+		clock_t end = clock();
 		
 		// Report the total amount of time, in seconds, required to insert the values to ChainingHash table. Write the results to a file called “HashAnalysis.txt”. 
+		std::ofstream outfile;
+		outfile.open("HashAnalysis.txt", std::ios::out);
+		outfile << "***Chaining Analysis***\nChaining insertion time: " << (double)(end-start)/CLOCKS_PER_SEC << "s" << endl;
 
 		// Search for the value with key 177 in ChainingHash table. Report the time required to find the value in each table by writing it to the “HashAnalysis.txt” file. 
-		
+		start = clock();
+		chainhash.at(177);
+		end = clock();
+		outfile << "Chaining search time: " << (double)(end-start)/CLOCKS_PER_SEC << "s" << endl;
+
 		// Search for the value with key 2,000,000 in ChainingHash table. Report the time required to find the value in each table by writing it to the file.  
+		start = clock();
+		chainhash.at(2000000);
+		end = clock();
+		outfile << "Chaining failed search time: " << (double)(end-start)/CLOCKS_PER_SEC << "s" << endl;
 
 		// Remove the value with key 177 from ChainingHash table. Report the time required to remove the value with in each table by writing it to the file.  
+		start = clock();
+		chainhash.erase(177);
+		end = clock();
+		outfile << "Chaining deletion time: " << (double)(end-start)/CLOCKS_PER_SEC << "s" << endl;
 
 		// Also, write to the file the final size, bucket count, and load factor of the hash for ChainingHash table. 
+		outfile << "Table size: " << chainhash.size() << "\nBucket count: " << chainhash.bucket_count() << "\nLoad factor: " << chainhash.load_factor() << endl;
 
 		/* Example output template:
 			Chaining insertion time: 
@@ -119,5 +144,6 @@ int main()
 			Bucket count: 
 			Load factor: 
 		*/
+	outfile.close();
 	return 0;
 }

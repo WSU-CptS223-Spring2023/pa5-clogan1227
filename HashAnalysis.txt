@@ -1,0 +1,8 @@
+***Chaining Analysis***
+Chaining insertion time: 1.93068s
+Chaining search time: 4e-06s
+Chaining failed search time: 2.5e-05s
+Chaining deletion time: 3e-06s
+Table size: 999999
+Bucket count: 1646237
+Load factor: 0.607445

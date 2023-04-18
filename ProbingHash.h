@@ -20,23 +20,25 @@ enum EntryState {
 template<typename K, typename V>
 class ProbingHash : public Hash<K,V> { // derived from Hash
 private:
-    // Needs a table and a size.
-    // Table should be a vector of std::pairs for lazy deletion
+    vector<K,pair<V,EntryState>> array;
+    int s; //size of table
 
 public:
     ProbingHash(int n = 11) {
+        array.resize(11);
+        s = 0;
     }
 
     ~ProbingHash() {
-        // Needs to actually free all table contents
+        this->empty();
     }
 
     bool empty() {
-        return 1;
+        return array.empty();
     }
 
     int size() {
-        return 1;
+        return s;
     }
 
     V& at(const K& key) {
@@ -62,14 +64,16 @@ public:
     }
 
     void clear() {
+        array.clear();
+        s = 0;
     }
 
     int bucket_count() {
-        return 1;
+        return array.capacity();
     }
 
     int bucket_size(int n) {
-        return 1;
+        return array[n].second.second == VALID ? 1 : 0;
     }
 
     int bucket(const K& key) {
@@ -77,7 +81,7 @@ public:
     }
 
     float load_factor() {
-        return 1;
+        return ((float)s/(float)array.capacity());
     }
 
     void rehash() {
@@ -110,7 +114,8 @@ private:
     }
 
     int hash(const K& key) {
-        return 0;       
+        std::hash<K> hashFunction;
+        return hashFunction(key) % this->bucket_count();       
     }
     
 };

@@ -54,7 +54,9 @@ public:
             if (listElement.first == key)
                 return listElement.second; // only returns value if key is in the list
         }
-        throw std::out_of_range("Key not in hash");
+        //throw std::out_of_range("Key not in hash");
+        cout << "Key not in hash" << endl;
+        //return key;
     }
 
     V& operator[](const K& key) {
@@ -62,7 +64,9 @@ public:
             if (listElement.first == key)
                 return listElement.second; // only returns value if key is in the list
         }
-        throw std::out_of_range("Key not in hash");
+        //throw std::out_of_range("Key not in hash");
+        cout << "Key not in hash" << endl;
+        //return key;
     }
 
     int count(const K& key) {
@@ -79,16 +83,20 @@ public:
     }
 
     void insert(const std::pair<K, V>& pair) {
-        array[hash(pair.first)].push_front(pair); //push new pair to front of list at hash location
+        array[hash(pair.first)].push_back(pair); //push new pair to back of list at hash location
         s++;
-        if (load_factor() > 0.75) rehash(); // rehash if load factor is above threshold
+        if (load_factor() > 0.75) 
+            rehash(); // rehash if load factor is above threshold
     }
 
     void erase(const K& key) {
         for (auto & listElement : array[hash(key)]){ //iterate through the list at the hash location
-            if (listElement.first == key)
+            if (listElement.first == key){
                 array[hash(key)].remove(listElement); //get rid of the element that matches the given key
+                break;
+            }
         }
+        s--;
     }
 
     void clear() {
@@ -100,7 +108,7 @@ public:
     }
 
     int bucket_count() {
-        return array.size();
+        return array.capacity();
     }
 
     int bucket_size(int n) {
@@ -116,14 +124,39 @@ public:
     }
 
     float load_factor() {
-        return s / array.size();
+        return ((float)s/(float)array.capacity());
     }
 
     void rehash() {
+        vector<list<pair<K,V>>> oldArray = array;
 
+        array.resize(findNextPrime(2 * array.capacity())); //double size then find next prime
+
+        for (auto& list : array) //clear table
+            list.clear();
+        
+        s = 0; //reset size
+
+        for (auto& oldList : oldArray){ //iterate through the linked lists
+            for (auto& oldItem : oldList) //iterate through the items in the linked list
+                insert(std::move(oldItem)); //move the items into the newly resized table
+        }
     }
 
     void rehash(int n) {
+        vector<list<pair<K,V>>> oldArray = array;
+
+        array.resize(findNextPrime(n)); //find next prime after given value
+
+        for (auto& list : array) //clear table
+            list.clear();
+        
+        s = 0; //reset size
+
+        for (auto& oldList : oldArray){ //iterate through the linked lists
+            for (auto& oldItem : oldList) //iterate through the items in the linked list
+                insert(std::move(oldItem)); //move the items into the newly resized table
+        }
     }
 
 
@@ -155,8 +188,8 @@ private:
     }
 
     int hash(const K& key) {
-
-        return (key * key) % this->bucket_count();       
+        std::hash<K> hashFunction;
+        return hashFunction(key) % this->bucket_count();    
     }
 
 };

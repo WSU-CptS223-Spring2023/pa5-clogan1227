@@ -62,18 +62,38 @@ int main()
 	/*Task I (b) - ProbingHash table (using Linear Probing) */
 
 		//  create an object of type ProbingHash 
+		ProbingHash<int,EntryState> probehash;
 
 		// In order, insert values with keys 1 – 1,000,000. For simplicity, the key and value stored are the same.
+		start = clock();
+		for (int i=1; i<1000001; i++){ 
+			probehash.insert({i,VALID});
+		}
+		end = clock();
 
 		// Report the total amount of time, in seconds, required to insert the values to ProbingHash table. Write the results to a file called “HashAnalysis.txt”. 
+		outfile << "\n***Probing Analysis***\nLinear Probing insertion time: " << (double)(end-start)/CLOCKS_PER_SEC << "s" << endl;
 
 		// Search for the value with key 177 in ProbingHash table. Report the time required to find the value in each table by writing it to the “HashAnalysis.txt” file. 
-		
+		start = clock();
+		probehash.at(177);
+		end = clock();
+		outfile << "Linear Probing search time: " << (double)(end-start)/CLOCKS_PER_SEC << "s" << endl;
+
 		// Search for the value with key 2,000,000 in ProbingHash table. Report the time required to find the value in each table by writing it to the file.  
+		start = clock();
+		probehash.at(2000000);
+		end = clock();
+		outfile << "Linear Probing failed search time: " << (double)(end-start)/CLOCKS_PER_SEC << "s" << endl;
 
 		// Remove the value with key 177 from ProbingHash table. Report the time required to remove the value with in each table by writing it to the file.  
+		start = clock();
+		probehash.erase(177);
+		end = clock();
+		outfile << "Linear Probing deletion time: " << (double)(end-start)/CLOCKS_PER_SEC << "s" << endl;
 
 		// Also, write to the file the final size, bucket count, and load factor of the hash for ProbingHash table. 
+		outfile << "Table size: " << probehash.size() << "\nBucket count: " << probehash.bucket_count() << "\nLoad factor: " << probehash.load_factor() << endl;
 
 		/* Example output template:
 			Linear Probing insertion time: 

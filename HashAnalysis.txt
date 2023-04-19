@@ -1,8 +1,17 @@
 ***Chaining Analysis***
-Chaining insertion time: 1.93068s
-Chaining search time: 4e-06s
-Chaining failed search time: 2.5e-05s
+Chaining insertion time: 2.05055s
+Chaining search time: 3e-06s
+Chaining failed search time: 2.9e-05s
 Chaining deletion time: 3e-06s
 Table size: 999999
-Bucket count: 1646237
-Load factor: 0.607445
+Bucket count: 1779761
+Load factor: 0.561873
+
+***Probing Analysis***
+Linear Probing insertion time: 0.623882s
+Linear Probing search time: 1e-06s
+Linear Probing failed search time: 0.026207s
+Linear Probing deletion time: 1e-06s
+Table size: 999999
+Bucket count: 1779761
+Load factor: 0.561873

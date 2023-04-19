@@ -32,7 +32,7 @@ class ChainingHash : public Hash<K,V> {
 private:
 
 public:
-    ChainingHash(int n = 11) {
+    ChainingHash(int n = 101) {
         array.resize(n);
         s = 0;
     }

@@ -1,17 +1,35 @@
 ***Chaining Analysis***
-Chaining insertion time: 2.05055s
-Chaining search time: 3e-06s
-Chaining failed search time: 2.9e-05s
+Chaining insertion time: 2.09923s
+Chaining search time: 2e-06s
+Chaining failed search time: 2.1e-05s
 Chaining deletion time: 3e-06s
 Table size: 999999
 Bucket count: 1779761
 Load factor: 0.561873
 
 ***Probing Analysis***
-Linear Probing insertion time: 0.623882s
-Linear Probing search time: 1e-06s
-Linear Probing failed search time: 0.026207s
-Linear Probing deletion time: 1e-06s
+Linear Probing insertion time: 0.663683s
+Linear Probing search time: 2e-06s
+Linear Probing failed search time: 0.027403s
+Linear Probing deletion time: 2e-06s
 Table size: 999999
 Bucket count: 1779761
 Load factor: 0.561873
+
+***Single Thread Parallel Analysis***
+Parallel Probing insertion time: 0.572265s
+Parallel Probing search time: 1e-06s
+Parallel Probing failed search time: 0.026349s
+Parallel Probing deletion time: 1e-06s
+Table size: 999999
+Bucket count: 1779761
+Load factor: 0.561873
+
+***Two Thread Parallel Analysis***
+Parallel Probing insertion time: 16.5698s
+Parallel Probing search time: 1e-06s
+Parallel Probing failed search time: 0.021376s
+Parallel Probing deletion time: 2e-06s
+Table size: 979564
+Bucket count: 1779761
+Load factor: 0.550391
